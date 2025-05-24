@@ -8,5 +8,7 @@
     "block.simple_aether_cloud.horizontal_blue_cloud": "水平蓝云",
     "block.simple_aether_cloud.horizontal_blue_cloud.desc": "§a免除摔落伤害\n§f向指定方向弹射实体\n§7潜行时阻止弹射并缓慢下沉",
     "block.simple_aether_cloud.red_cloud": "红云",
-    "block.simple_aether_cloud.red_cloud.desc": "§a免除摔落伤害\n§c对实体造成伤害\n§7潜行时免疫伤害"
+    "block.simple_aether_cloud.red_cloud.desc": "§a免除摔落伤害\n§c对实体造成伤害\n§7潜行时免疫伤害",
+    "block.simple_aether_cloud.green_cloud": "绿云",
+    "block.simple_aether_cloud.green_cloud.desc": "§a免除摔落伤害\n§a加速实体成长\n§a加快繁殖冷却\n§a吸引附近动物靠近\n§7方块内的动物会定期尝试繁殖"
 }

@@ -8,5 +8,7 @@
     "block.simple_aether_cloud.horizontal_blue_cloud": "Horizontal Blue Cloud",
     "block.simple_aether_cloud.horizontal_blue_cloud.desc": "§aPrevents fall damage\n§fLaunches entities in facing direction\n§7Sneak to prevent launch and sink slowly",
     "block.simple_aether_cloud.red_cloud": "Red Cloud",
-    "block.simple_aether_cloud.red_cloud.desc": "§aPrevents fall damage\n§cDeals damage to entities\n§7Sneak to prevent damage"
+    "block.simple_aether_cloud.red_cloud.desc": "§aPrevents fall damage\n§cDeals damage to entities\n§7Sneak to prevent damage",
+    "block.simple_aether_cloud.green_cloud": "Green Cloud",
+    "block.simple_aether_cloud.green_cloud.desc": "§aPrevents fall damage\n§aAccelerates entity growth\n§aReduces breeding cooldown\n§aAttracts nearby animals\n§7Animals inside will periodically attempt to breed"
 }

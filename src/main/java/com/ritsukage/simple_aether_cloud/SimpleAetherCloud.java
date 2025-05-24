@@ -1,6 +1,8 @@
 package com.ritsukage.simple_aether_cloud;
 
 import com.ritsukage.simple_aether_cloud.block.*;
+import com.ritsukage.simple_aether_cloud.event.GreenCloudHandler;
+import com.ritsukage.simple_aether_cloud.event.ChunkEventHandler;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
@@ -11,6 +13,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -39,7 +42,8 @@ public class SimpleAetherCloud {
             new CloudBlockInfo("blue_cloud", BlueCloud.class, MapColor.COLOR_LIGHT_BLUE),
             new CloudBlockInfo("horizontal_blue_cloud", HorizontalBlueCloud.class,
                     MapColor.COLOR_LIGHT_BLUE),
-            new CloudBlockInfo("red_cloud", RedCloud.class, MapColor.COLOR_RED)));
+            new CloudBlockInfo("red_cloud", RedCloud.class, MapColor.COLOR_RED),
+            new CloudBlockInfo("green_cloud", GreenCloud.class, MapColor.COLOR_GREEN)));
 
     static {
         CLOUD_BLOCKS.forEach(info -> {
@@ -62,6 +66,8 @@ public class SimpleAetherCloud {
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
+        NeoForge.EVENT_BUS.register(GreenCloudHandler.class);
+        NeoForge.EVENT_BUS.register(ChunkEventHandler.class);
 
         modEventBus.addListener(this::addCreative);
     }
