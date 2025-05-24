@@ -72,7 +72,6 @@ public class SimpleAetherCloud {
             "cloud_tab",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.simple_aether_cloud"))
-                    .withTabsBefore(CreativeModeTabs.COMBAT)
                     .icon(() -> YELLOW_CLOUD_ITEM.get().getDefaultInstance())
                     .displayItems(CLOUD_ITEMS)
                     .build());
