@@ -1,27 +1,30 @@
+# Simple Aether Cloud Mod
 
-Installation information
-=======
+一个简单的Minecraft模组，添加了两种云方块：黄云和蓝云。这些云方块具有与Aether模组中云方块相同的功能。
 
-This template repository can be directly cloned to get you started with a new
-mod. Simply create a new repository cloned from this one, by following the
-instructions at [github](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+## 合成配方
 
-Once you have your clone, simply open the repository in the IDE of your choice. The usual recommendation for an IDE is either IntelliJ IDEA or Eclipse.
+### 黄云
 
-> **Note**: For Eclipse, use tasks in `Launch Group` instead of ones founds in `Java Application`. A preparation task must run before launching the game. NeoGradle uses launch groups to do these subsequently.
+```
+糖 + 黄色染料 = 黄云
+```
 
-If at any point you are missing libraries in your IDE, or you've run into problems you can
-run `gradlew --refresh-dependencies` to refresh the local cache. `gradlew clean` to reset everything 
-{this does not affect your code} and then start the process again.
+### 蓝云
 
-Mapping Names:
-============
-By default, the MDK is configured to use the official mapping names from Mojang for methods and fields 
-in the Minecraft codebase. These names are covered by a specific license. All modders should be aware of this
-license. For the latest license text, refer to the mapping file itself, or the reference copy here:
-https://github.com/NeoForged/NeoForm/blob/main/Mojang.md
+```
+糖 + 蓝色染料 = 蓝云
+```
 
-Additional Resources: 
-==========
-Community Documentation: https://docs.neoforged.net/  
-NeoForged Discord: https://discord.neoforged.net/
+## 安装要求
+
+- Minecraft 1.21 ~ 1.21.1
+- NeoForge 21.0.167 及以上
+
+## 许可证
+
+本项目采用 LGPL-3.0 许可证。详见 [LICENSE](LICENSE) 文件。
+
+## 致谢
+
+- 代码和素材来自 [The Aether Mod](https://github.com/The-Aether-Team/The-Aether)

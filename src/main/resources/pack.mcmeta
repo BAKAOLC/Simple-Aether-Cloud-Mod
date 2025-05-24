@@ -1,0 +1,12 @@
+{
+    "pack": {
+        "description": {
+            "translate": "pack.simple_aether_cloud.mod.description"
+        },
+        "pack_format": 48,
+        "supported_formats": [
+            0,
+            2147483647
+        ]
+    }
+} 
