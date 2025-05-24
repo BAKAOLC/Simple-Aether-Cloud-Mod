@@ -2,6 +2,8 @@
 
 一个简单的Minecraft模组，添加了多种云方块。原始思路来自The Aether模组，在此基础上添加了自己的特性。
 
+[English](README_EN.md) | 简体中文
+
 ## 功能
 
 - 添加了黄云、蓝云、水平蓝云和红云方块
@@ -49,6 +51,25 @@
 
 - Minecraft 1.21 ~ 1.21.1
 - NeoForge 21.0.167 及以上
+
+## 构建方法
+
+1. 克隆仓库
+```bash
+git clone https://github.com/BAKAOLC/Simple-Aether-Cloud-Mod.git
+```
+
+2. 进入项目目录
+```bash
+cd Simple-Aether-Cloud-Mod
+```
+
+3. 构建项目
+```bash
+./gradlew build
+```
+
+构建完成后，你可以在 `build/libs` 目录下找到生成的模组文件。
 
 ## 许可证
 
