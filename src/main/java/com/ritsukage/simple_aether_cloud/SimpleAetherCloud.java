@@ -1,17 +1,12 @@
 package com.ritsukage.simple_aether_cloud;
 
 import com.ritsukage.simple_aether_cloud.block.*;
-import com.ritsukage.simple_aether_cloud.item.CloudBlockItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -22,6 +17,9 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Mod(SimpleAetherCloud.MODID)
 public class SimpleAetherCloud {
     public static final String MODID = "simple_aether_cloud";
@@ -30,80 +28,34 @@ public class SimpleAetherCloud {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister
             .create(Registries.CREATIVE_MODE_TAB, MODID);
 
-    private static final BlockBehaviour.StatePredicate NO_REDSTONE = (state, getter, pos) -> false;
-    private static final BlockBehaviour.StatePredicate NO_SUFFOCATING = (state, getter, pos) -> false;
-    private static final BlockBehaviour.StatePredicate NO_VIEW_BLOCKING = (state, getter, pos) -> false;
+    private static final CloudBlockFactory CLOUD_FACTORY = new CloudBlockFactory(BLOCKS, ITEMS);
+    private static final List<DeferredItem<BlockItem>> CLOUD_ITEMS = new ArrayList<>();
 
-    public static final DeferredBlock<Block> YELLOW_CLOUD = BLOCKS.register("yellow_cloud",
-            () -> new YellowCloud(Block.Properties.of()
-                    .mapColor(MapColor.COLOR_YELLOW)
-                    .instrument(NoteBlockInstrument.FLUTE)
-                    .strength(0.3F)
-                    .sound(SoundType.WOOL)
-                    .noOcclusion()
-                    .dynamicShape()
-                    .isRedstoneConductor(NO_REDSTONE)
-                    .isSuffocating(NO_SUFFOCATING)
-                    .isViewBlocking(NO_VIEW_BLOCKING)));
+    private static final record CloudBlockInfo(String name, Class<? extends Block> blockClass, MapColor color) {
+    }
 
-    public static final DeferredBlock<Block> BLUE_CLOUD = BLOCKS.register("blue_cloud",
-            () -> new BlueCloud(Block.Properties.of()
-                    .mapColor(MapColor.COLOR_LIGHT_BLUE)
-                    .instrument(NoteBlockInstrument.FLUTE)
-                    .strength(0.3F)
-                    .sound(SoundType.WOOL)
-                    .noOcclusion()
-                    .dynamicShape()
-                    .isRedstoneConductor(NO_REDSTONE)
-                    .isSuffocating(NO_SUFFOCATING)
-                    .isViewBlocking(NO_VIEW_BLOCKING)));
+    private static final List<CloudBlockInfo> CLOUD_BLOCKS = new ArrayList<>(List.of(
+            new CloudBlockInfo("yellow_cloud", YellowCloud.class, MapColor.COLOR_YELLOW),
+            new CloudBlockInfo("blue_cloud", BlueCloud.class, MapColor.COLOR_LIGHT_BLUE),
+            new CloudBlockInfo("horizontal_blue_cloud", HorizontalBlueCloud.class,
+                    MapColor.COLOR_LIGHT_BLUE),
+            new CloudBlockInfo("red_cloud", RedCloud.class, MapColor.COLOR_RED)));
 
-    public static final DeferredBlock<Block> HORIZONTAL_BLUE_CLOUD = BLOCKS.register("horizontal_blue_cloud",
-            () -> new HorizontalBlueCloud(Block.Properties.of()
-                    .mapColor(MapColor.COLOR_LIGHT_BLUE)
-                    .instrument(NoteBlockInstrument.FLUTE)
-                    .strength(0.3F)
-                    .sound(SoundType.WOOL)
-                    .noOcclusion()
-                    .dynamicShape()
-                    .isRedstoneConductor(NO_REDSTONE)
-                    .isSuffocating(NO_SUFFOCATING)
-                    .isViewBlocking(NO_VIEW_BLOCKING)));
-
-    public static final DeferredBlock<Block> RED_CLOUD = BLOCKS.register("red_cloud",
-            () -> new RedCloud(Block.Properties.of()
-                    .mapColor(MapColor.COLOR_RED)
-                    .instrument(NoteBlockInstrument.FLUTE)
-                    .strength(0.3F)
-                    .sound(SoundType.WOOL)
-                    .noOcclusion()
-                    .dynamicShape()
-                    .isRedstoneConductor(NO_REDSTONE)
-                    .isSuffocating(NO_SUFFOCATING)
-                    .isViewBlocking(NO_VIEW_BLOCKING)));
-
-    public static final DeferredItem<BlockItem> YELLOW_CLOUD_ITEM = ITEMS.register("yellow_cloud",
-            () -> new CloudBlockItem(YELLOW_CLOUD.get(), new Item.Properties()));
-    public static final DeferredItem<BlockItem> BLUE_CLOUD_ITEM = ITEMS.register("blue_cloud",
-            () -> new CloudBlockItem(BLUE_CLOUD.get(), new Item.Properties()));
-    public static final DeferredItem<BlockItem> HORIZONTAL_BLUE_CLOUD_ITEM = ITEMS.register("horizontal_blue_cloud",
-            () -> new CloudBlockItem(HORIZONTAL_BLUE_CLOUD.get(), new Item.Properties()));
-    public static final DeferredItem<BlockItem> RED_CLOUD_ITEM = ITEMS.register("red_cloud",
-            () -> new CloudBlockItem(RED_CLOUD.get(), new Item.Properties()));
-
-    private static final CreativeModeTab.DisplayItemsGenerator CLOUD_ITEMS = (parameters, output) -> {
-        output.accept(YELLOW_CLOUD_ITEM.get());
-        output.accept(BLUE_CLOUD_ITEM.get());
-        output.accept(HORIZONTAL_BLUE_CLOUD_ITEM.get());
-        output.accept(RED_CLOUD_ITEM.get());
-    };
+    static {
+        CLOUD_BLOCKS.forEach(info -> {
+            DeferredBlock<? extends Block> block = CLOUD_FACTORY.registerCloudBlock(info.name,
+                    info.blockClass, info.color);
+            CLOUD_ITEMS.add(CLOUD_FACTORY.registerItem(info.name, block));
+        });
+    }
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> CLOUD_TAB = CREATIVE_MODE_TABS.register(
             "cloud_tab",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.simple_aether_cloud"))
-                    .icon(() -> YELLOW_CLOUD_ITEM.get().getDefaultInstance())
-                    .displayItems(CLOUD_ITEMS)
+                    .icon(() -> CLOUD_ITEMS.get(0).get().getDefaultInstance())
+                    .displayItems((parameters, output) -> CLOUD_ITEMS
+                            .forEach(item -> output.accept(item.get())))
                     .build());
 
     public SimpleAetherCloud(IEventBus modEventBus, ModContainer modContainer) {
@@ -116,10 +68,7 @@ public class SimpleAetherCloud {
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
-            event.accept(YELLOW_CLOUD_ITEM);
-            event.accept(BLUE_CLOUD_ITEM);
-            event.accept(HORIZONTAL_BLUE_CLOUD_ITEM);
-            event.accept(RED_CLOUD_ITEM);
+            CLOUD_ITEMS.forEach(event::accept);
         }
     }
 }
