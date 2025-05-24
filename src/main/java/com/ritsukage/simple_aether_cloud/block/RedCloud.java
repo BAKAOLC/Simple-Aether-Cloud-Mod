@@ -29,6 +29,10 @@ public class RedCloud extends YellowCloud {
             return;
         }
 
+        if (entity.isShiftKeyDown()) {
+            return;
+        }
+
         livingEntity.hurt(level.damageSources().playerAttack(null), 4.0F);
         
         if (!level.isClientSide()) {
@@ -38,7 +42,9 @@ public class RedCloud extends YellowCloud {
         level.playSound((entity instanceof Player player ? player : null), pos,
                 SoundEvents.SLIME_BLOCK_BREAK, SoundSource.BLOCKS, 0.8F,
                 0.5F + (((float) (Math.pow(level.getRandom().nextDouble(), 2.5))) * 0.5F));
-        for (int count = 0; count < 10; count++) {
+
+        int amount = level.getRandom().nextInt(1, 3);
+        for (int i = 0; i < amount; i++) {
             double xOffset = pos.getX() + level.getRandom().nextDouble();
             double yOffset = pos.getY() + level.getRandom().nextDouble();
             double zOffset = pos.getZ() + level.getRandom().nextDouble();

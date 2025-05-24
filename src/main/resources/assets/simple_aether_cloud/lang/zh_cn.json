@@ -1,8 +1,12 @@
 {
-    "block.simple_aether_cloud.yellow_cloud": "黄云",
-    "block.simple_aether_cloud.blue_cloud": "蓝云",
-    "block.simple_aether_cloud.horizontal_blue_cloud": "水平蓝云",
-    "block.simple_aether_cloud.red_cloud": "红云",
     "itemGroup.simple_aether_cloud": "简单天域云",
-    "pack.simple_aether_cloud.mod.description": "简单天域云模组数据包"
+    "pack.simple_aether_cloud.mod.description": "简单天域云模组数据包",
+    "block.simple_aether_cloud.yellow_cloud": "黄云",
+    "block.simple_aether_cloud.yellow_cloud.desc": "§a免除摔落伤害\n§f无法穿过方块底部",
+    "block.simple_aether_cloud.blue_cloud": "蓝云",
+    "block.simple_aether_cloud.blue_cloud.desc": "§a免除摔落伤害\n§f向指向方向弹射\n§7潜行时阻止弹射并缓慢下沉",
+    "block.simple_aether_cloud.horizontal_blue_cloud": "水平蓝云",
+    "block.simple_aether_cloud.horizontal_blue_cloud.desc": "§a免除摔落伤害\n§f向指向方向弹射\n§7潜行时阻止弹射并缓慢下沉",
+    "block.simple_aether_cloud.red_cloud": "红云",
+    "block.simple_aether_cloud.red_cloud.desc": "§a免除摔落伤害\n§c对实体造成伤害\n§7潜行时免疫伤害"
 }
