@@ -1,7 +1,6 @@
 package com.ritsukage.simple_aether_cloud;
 
-import com.ritsukage.simple_aether_cloud.block.BlueCloud;
-import com.ritsukage.simple_aether_cloud.block.YellowCloud;
+import com.ritsukage.simple_aether_cloud.block.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
@@ -58,14 +57,44 @@ public class SimpleAetherCloud {
                     .isSuffocating(NO_SUFFOCATING)
                     .isViewBlocking(NO_VIEW_BLOCKING)));
 
+    public static final DeferredBlock<Block> HORIZONTAL_BLUE_CLOUD = BLOCKS.register("horizontal_blue_cloud",
+            () -> new HorizontalBlueCloud(Block.Properties.of()
+                    .mapColor(MapColor.COLOR_LIGHT_BLUE)
+                    .instrument(NoteBlockInstrument.FLUTE)
+                    .strength(0.3F)
+                    .sound(SoundType.WOOL)
+                    .noOcclusion()
+                    .dynamicShape()
+                    .isRedstoneConductor(NO_REDSTONE)
+                    .isSuffocating(NO_SUFFOCATING)
+                    .isViewBlocking(NO_VIEW_BLOCKING)));
+
+    public static final DeferredBlock<Block> RED_CLOUD = BLOCKS.register("red_cloud",
+            () -> new RedCloud(Block.Properties.of()
+                    .mapColor(MapColor.COLOR_RED)
+                    .instrument(NoteBlockInstrument.FLUTE)
+                    .strength(0.3F)
+                    .sound(SoundType.WOOL)
+                    .noOcclusion()
+                    .dynamicShape()
+                    .isRedstoneConductor(NO_REDSTONE)
+                    .isSuffocating(NO_SUFFOCATING)
+                    .isViewBlocking(NO_VIEW_BLOCKING)));
+
     public static final DeferredItem<BlockItem> YELLOW_CLOUD_ITEM = ITEMS.register("yellow_cloud",
             () -> new BlockItem(YELLOW_CLOUD.get(), new Item.Properties()));
     public static final DeferredItem<BlockItem> BLUE_CLOUD_ITEM = ITEMS.register("blue_cloud",
             () -> new BlockItem(BLUE_CLOUD.get(), new Item.Properties()));
+    public static final DeferredItem<BlockItem> HORIZONTAL_BLUE_CLOUD_ITEM = ITEMS.register("horizontal_blue_cloud",
+            () -> new BlockItem(HORIZONTAL_BLUE_CLOUD.get(), new Item.Properties()));
+    public static final DeferredItem<BlockItem> RED_CLOUD_ITEM = ITEMS.register("red_cloud",
+            () -> new BlockItem(RED_CLOUD.get(), new Item.Properties()));
 
     private static final CreativeModeTab.DisplayItemsGenerator CLOUD_ITEMS = (parameters, output) -> {
         output.accept(YELLOW_CLOUD_ITEM.get());
         output.accept(BLUE_CLOUD_ITEM.get());
+        output.accept(HORIZONTAL_BLUE_CLOUD_ITEM.get());
+        output.accept(RED_CLOUD_ITEM.get());
     };
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> CLOUD_TAB = CREATIVE_MODE_TABS.register(
@@ -88,6 +117,8 @@ public class SimpleAetherCloud {
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
             event.accept(YELLOW_CLOUD_ITEM);
             event.accept(BLUE_CLOUD_ITEM);
+            event.accept(HORIZONTAL_BLUE_CLOUD_ITEM);
+            event.accept(RED_CLOUD_ITEM);
         }
     }
 }

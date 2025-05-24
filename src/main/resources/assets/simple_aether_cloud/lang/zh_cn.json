@@ -1,6 +1,8 @@
 {
     "block.simple_aether_cloud.yellow_cloud": "黄云",
     "block.simple_aether_cloud.blue_cloud": "蓝云",
+    "block.simple_aether_cloud.horizontal_blue_cloud": "水平蓝云",
+    "block.simple_aether_cloud.red_cloud": "红云",
     "itemGroup.simple_aether_cloud": "简单天域云",
     "pack.simple_aether_cloud.mod.description": "简单天域云模组数据包"
 }

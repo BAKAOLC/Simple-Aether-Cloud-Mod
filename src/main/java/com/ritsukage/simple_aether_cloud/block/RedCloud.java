@@ -1,0 +1,54 @@
+package com.ritsukage.simple_aether_cloud.block;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
+
+public class RedCloud extends YellowCloud {
+    protected static final VoxelShape COLLISION_SHAPE = Shapes.empty();
+
+    public RedCloud(Properties properties) {
+        super(properties);
+    }
+
+    @Override
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+        if (!(entity instanceof LivingEntity livingEntity)) {
+            return;
+        }
+
+        livingEntity.hurt(level.damageSources().playerAttack(null), 4.0F);
+        
+        if (!level.isClientSide()) {
+            return;
+        }
+
+        level.playSound((entity instanceof Player player ? player : null), pos,
+                SoundEvents.SLIME_BLOCK_BREAK, SoundSource.BLOCKS, 0.8F,
+                0.5F + (((float) (Math.pow(level.getRandom().nextDouble(), 2.5))) * 0.5F));
+        for (int count = 0; count < 10; count++) {
+            double xOffset = pos.getX() + level.getRandom().nextDouble();
+            double yOffset = pos.getY() + level.getRandom().nextDouble();
+            double zOffset = pos.getZ() + level.getRandom().nextDouble();
+            level.addParticle(ParticleTypes.LAVA, xOffset, yOffset, zOffset, 0.0, 0.0, 0.0);
+        }
+    }
+
+    @Override
+    public VoxelShape getDefaultCollisionShape(BlockState state, BlockGetter level, BlockPos pos,
+            CollisionContext context) {
+        return COLLISION_SHAPE;
+    }
+} 

@@ -1,0 +1,19 @@
+{
+    "variants": {
+        "facing=north": {
+            "model": "simple_aether_cloud:block/horizontal_blue_cloud"
+        },
+        "facing=east": {
+            "model": "simple_aether_cloud:block/horizontal_blue_cloud",
+            "y": 90
+        },
+        "facing=south": {
+            "model": "simple_aether_cloud:block/horizontal_blue_cloud",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "simple_aether_cloud:block/horizontal_blue_cloud",
+            "y": 270
+        }
+    }
+} 

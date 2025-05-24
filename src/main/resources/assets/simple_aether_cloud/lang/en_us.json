@@ -1,6 +1,8 @@
 {
     "block.simple_aether_cloud.yellow_cloud": "Yellow Cloud",
     "block.simple_aether_cloud.blue_cloud": "Blue Cloud",
+    "block.simple_aether_cloud.horizontal_blue_cloud": "Horizontal Blue Cloud",
+    "block.simple_aether_cloud.red_cloud": "Red Cloud",
     "itemGroup.simple_aether_cloud": "Simple Aether Cloud",
     "pack.simple_aether_cloud.mod.description": "Simple Aether Cloud Mod Data Pack"
 }
