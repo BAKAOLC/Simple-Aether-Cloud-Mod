@@ -2,6 +2,7 @@ package com.ritsukage.simple_aether_cloud.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -35,5 +36,10 @@ public class TimedBlackCloudBlock extends BlackCloudBlock implements EntityBlock
         if (!level.isClientSide) {
             level.setBlock(pos, state.setValue(ACTIVATED, true), 2);
         }
+    }
+
+    @Override
+    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos,
+            boolean isMoving) {
     }
 }

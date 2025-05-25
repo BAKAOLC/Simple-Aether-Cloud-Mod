@@ -42,8 +42,8 @@ public class TimedBlackCloudBlockEntity extends BlockEntity implements BlockEnti
             return;
         }
 
-        AABB searchBox = new AABB(pos.getX(), pos.getY(), pos.getZ(),
-                pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
+        AABB searchBox = new AABB(pos.getX(), pos.getY() + 1, pos.getZ(),
+                pos.getX() + 1, pos.getY() + 2, pos.getZ() + 1);
         int entityCount = level.getEntitiesOfClass(Entity.class, searchBox).size();
 
         if (entityCount > 0) {
