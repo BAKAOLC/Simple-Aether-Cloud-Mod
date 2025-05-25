@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class TimedBlackCloudBlock extends BlackCloudBlock implements EntityBlock {
     public TimedBlackCloudBlock(Properties properties) {
         super(properties);
+        this.registerDefaultState(this.stateDefinition.any().setValue(ACTIVATED, true));
     }
 
     @Override
@@ -32,10 +33,10 @@ public class TimedBlackCloudBlock extends BlackCloudBlock implements EntityBlock
 
     @Override
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
-        super.onPlace(state, level, pos, oldState, isMoving);
         if (!level.isClientSide) {
             level.setBlock(pos, state.setValue(ACTIVATED, true), 2);
         }
+        super.onPlace(state, level, pos, oldState, isMoving);
     }
 
     @Override
