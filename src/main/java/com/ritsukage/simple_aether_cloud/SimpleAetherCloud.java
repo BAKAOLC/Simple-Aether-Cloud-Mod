@@ -1,9 +1,9 @@
 package com.ritsukage.simple_aether_cloud;
 
 import com.ritsukage.simple_aether_cloud.block.*;
-import com.ritsukage.simple_aether_cloud.event.GreenCloudHandler;
-import com.ritsukage.simple_aether_cloud.event.ChunkEventHandler;
 import com.ritsukage.simple_aether_cloud.config.CloudConfig;
+import com.ritsukage.simple_aether_cloud.event.GreenCloudHandler;
+
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
@@ -72,7 +72,7 @@ public class SimpleAetherCloud {
         ITEMS.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
         NeoForge.EVENT_BUS.register(GreenCloudHandler.class);
-        NeoForge.EVENT_BUS.register(ChunkEventHandler.class);
+        ModBlockEntities.BLOCK_ENTITIES.register(modEventBus);
 
         modEventBus.addListener(this::addCreative);
         modContainer.registerConfig(ModConfig.Type.COMMON, CloudConfig.SPEC);

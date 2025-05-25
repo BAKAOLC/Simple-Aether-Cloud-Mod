@@ -27,5 +27,7 @@
     "simple_aether_cloud.configuration.green_cloud.min_distance": "动物需要与云保持的最小距离",
     "simple_aether_cloud.configuration.green_cloud.attraction_speed": "动物被吸引到云的速度",
     "simple_aether_cloud.configuration.green_cloud.breed_interval": "繁殖尝试的间隔",
-    "simple_aether_cloud.configuration.green_cloud.timer_modifier": "计时器变化倍率（更高的值使计时器进度更快）"
+    "simple_aether_cloud.configuration.green_cloud.timer_modifier": "计时器变化倍率（更高的值使计时器进度更快）",
+    "simple_aether_cloud.configuration.green_cloud.move_interval": "移动更新的间隔",
+    "simple_aether_cloud.configuration.green_cloud.particle_count": "绿云产生的粒子数量"
 }
