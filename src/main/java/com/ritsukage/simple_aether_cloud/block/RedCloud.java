@@ -1,5 +1,6 @@
 package com.ritsukage.simple_aether_cloud.block;
 
+import com.ritsukage.simple_aether_cloud.config.CloudConfig;
 import com.ritsukage.simple_aether_cloud.damage.RedCloudDamageSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -32,7 +33,7 @@ public class RedCloud extends YellowCloud {
             return;
         }
 
-        livingEntity.hurt(new RedCloudDamageSource(level), 4.0F);
+        livingEntity.hurt(new RedCloudDamageSource(level), CloudConfig.RED_CLOUD_DAMAGE_AMOUNT.get().floatValue());
 
         if (!level.isClientSide()) {
             return;
@@ -42,8 +43,7 @@ public class RedCloud extends YellowCloud {
                 SoundEvents.SLIME_BLOCK_BREAK, SoundSource.BLOCKS, 0.8F,
                 0.5F + (((float) (Math.pow(level.getRandom().nextDouble(), 2.5))) * 0.5F));
 
-        int amount = level.getRandom().nextInt(10, 20);
-        for (int i = 0; i < amount; i++) {
+        for (int i = 0; i < CloudConfig.RED_CLOUD_PARTICLE_COUNT.get(); i++) {
             double xOffset = pos.getX() + level.getRandom().nextDouble();
             double yOffset = pos.getY() + level.getRandom().nextDouble();
             double zOffset = pos.getZ() + level.getRandom().nextDouble();

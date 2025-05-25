@@ -1,5 +1,6 @@
 package com.ritsukage.simple_aether_cloud.block;
 
+import com.ritsukage.simple_aether_cloud.config.CloudConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -25,7 +26,8 @@ public class HorizontalBlueCloud extends BlueCloud {
 
     public HorizontalBlueCloud(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH));
+        this.registerDefaultState(
+                this.stateDefinition.any().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH));
     }
 
     @Override
@@ -35,7 +37,8 @@ public class HorizontalBlueCloud extends BlueCloud {
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, context.getHorizontalDirection());
+        return this.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING,
+                context.getHorizontalDirection());
     }
 
     @Override
@@ -44,21 +47,22 @@ public class HorizontalBlueCloud extends BlueCloud {
                 && (!entity.isVehicle() || !(entity.getControllingPassenger() instanceof Player))) {
             Vec3 prevMotion = entity.getDeltaMovement();
             entity.resetFallDistance();
-            
+
             Direction facing = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
-            double horizontalSpeed = 2.0;
-            
+            double horizontalSpeed = CloudConfig.HORIZONTAL_BLUE_CLOUD_HORIZONTAL_LAUNCH_SPEED.get();
+
             double xMotion = facing.getStepX() * horizontalSpeed;
             double zMotion = facing.getStepZ() * horizontalSpeed;
-            
+
             entity.setDeltaMovement(xMotion, prevMotion.y(), zMotion);
 
             if (level.isClientSide()) {
-                int amount = 50;
+                int amount = CloudConfig.HORIZONTAL_BLUE_CLOUD_MOVING_PARTICLE_COUNT.get();
                 if (entity.getY() == entity.yOld) {
-                    amount = 10;
+                    amount = CloudConfig.HORIZONTAL_BLUE_CLOUD_STATIC_PARTICLE_COUNT.get();
                 }
-                if (entity.getDeltaMovement().x() != prevMotion.x() || entity.getDeltaMovement().z() != prevMotion.z()) {
+                if (entity.getDeltaMovement().x() != prevMotion.x()
+                        || entity.getDeltaMovement().z() != prevMotion.z()) {
                     level.playSound((entity instanceof Player player ? player : null), pos,
                             SoundEvents.SLIME_BLOCK_BREAK, SoundSource.BLOCKS, 0.8F,
                             0.5F + (((float) (Math.pow(level.getRandom().nextDouble(), 2.5))) * 0.5F));
@@ -83,4 +87,4 @@ public class HorizontalBlueCloud extends BlueCloud {
             CollisionContext context) {
         return COLLISION_SHAPE;
     }
-} 
+}

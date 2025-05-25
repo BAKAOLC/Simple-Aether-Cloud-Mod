@@ -1,12 +1,12 @@
 package com.ritsukage.simple_aether_cloud.block;
 
+import com.ritsukage.simple_aether_cloud.config.CloudConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -24,16 +24,18 @@ public class BlueCloud extends YellowCloud {
 
     @Override
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        if (!entity.isShiftKeyDown()
-                && (!entity.isVehicle() || !(entity.getControllingPassenger() instanceof Player))) {
+        if (!entity.isShiftKeyDown()) {
             Vec3 prevMotion = entity.getDeltaMovement();
             entity.resetFallDistance();
-            entity.setDeltaMovement(prevMotion.x(), 2.0, prevMotion.z());
+
+            if (prevMotion.y < CloudConfig.BLUE_CLOUD_VERTICAL_LAUNCH_SPEED.get()) {
+                entity.setDeltaMovement(prevMotion.x, CloudConfig.BLUE_CLOUD_VERTICAL_LAUNCH_SPEED.get(), prevMotion.z);
+            }
 
             if (level.isClientSide()) {
-                int amount = 50;
+                int amount = CloudConfig.BLUE_CLOUD_MOVING_PARTICLE_COUNT.get();
                 if (entity.getY() == entity.yOld) {
-                    amount = 10;
+                    amount = CloudConfig.BLUE_CLOUD_STATIC_PARTICLE_COUNT.get();
                 }
                 if (entity.getDeltaMovement().y() != prevMotion.y()) {
                     level.playSound((entity instanceof Player player ? player : null), pos,
@@ -47,9 +49,7 @@ public class BlueCloud extends YellowCloud {
                     level.addParticle(ParticleTypes.SPLASH, xOffset, yOffset, zOffset, 0.0, 0.0, 0.0);
                 }
             }
-            if (!(entity instanceof Projectile)) {
-                entity.setOnGround(false);
-            }
+            entity.setOnGround(false);
         } else {
             super.entityInside(state, level, pos, entity);
         }

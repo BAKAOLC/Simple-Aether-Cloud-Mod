@@ -1,5 +1,6 @@
 package com.ritsukage.simple_aether_cloud.block;
 
+import com.ritsukage.simple_aether_cloud.config.CloudConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.AgeableMob;
@@ -18,17 +19,12 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.stream.Collectors;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.phys.AABB;
+import java.util.stream.Collectors;
 
 public class GreenCloud extends YellowCloud {
     protected static final VoxelShape COLLISION_SHAPE = Shapes.empty();
-    private static final int Multiplier = 2;
-    private static final int ATTRACTION_RANGE = 16;
-    private static final double MIN_DISTANCE = 3.0;
-    private static final double ATTRACTION_SPEED = 0.8;
-    private static final int BREED_INTERVAL = 200;
-
     private static final Set<BlockPos> CLOUD_POSITIONS = new HashSet<>();
     private static final Map<UUID, CloudTarget> ANIMAL_TARGETS = new HashMap<>();
 
@@ -50,7 +46,7 @@ public class GreenCloud extends YellowCloud {
         for (int x = 0; x < 16; x++) {
             for (int y = level.getMinBuildHeight(); y < level.getMaxBuildHeight(); y++) {
                 for (int z = 0; z < 16; z++) {
-                    BlockPos pos = new BlockPos(chunkPos.getMinBlockX() + x, y, chunkPos.getMinBlockZ() + z);
+                    BlockPos pos = chunkPos.getBlockAt(x, y, z);
                     if (level.getBlockState(pos).getBlock() instanceof GreenCloud) {
                         CLOUD_POSITIONS.add(pos);
                     }
@@ -64,15 +60,16 @@ public class GreenCloud extends YellowCloud {
     }
 
     private static boolean isInAnyCloudRange(Animal animal, Level level) {
-        int range = (int) ATTRACTION_RANGE;
+        int range = CloudConfig.GREEN_CLOUD_ATTRACTION_RANGE.get();
         BlockPos animalPos = animal.blockPosition();
         BlockPos minPos = animalPos.offset(-range, -range, -range);
         BlockPos maxPos = animalPos.offset(range, range, range);
 
         for (BlockPos pos : BlockPos.betweenClosed(minPos, maxPos)) {
             if (level.getBlockState(pos).getBlock() instanceof GreenCloud) {
-                if (animal.distanceToSqr(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5) <= MIN_DISTANCE
-                        * MIN_DISTANCE) {
+                if (animal.distanceToSqr(pos.getX() + 0.5, pos.getY(),
+                        pos.getZ() + 0.5) <= CloudConfig.GREEN_CLOUD_MIN_DISTANCE.get()
+                                * CloudConfig.GREEN_CLOUD_MIN_DISTANCE.get()) {
                     return true;
                 }
             }
@@ -84,20 +81,24 @@ public class GreenCloud extends YellowCloud {
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         super.entityInside(state, level, pos, entity);
 
+        if (level.isClientSide()) {
+            return;
+        }
+
         boolean updated = false;
         if (entity instanceof AgeableMob ageable) {
             if (ageable.getAge() < 0) {
-                int newAge = ageable.getAge() + Multiplier;
+                int newAge = ageable.getAge() + CloudConfig.GREEN_CLOUD_TIMER_MODIFIER.get();
                 ageable.setAge(Math.min(newAge, 0));
                 updated = true;
             } else if (ageable.getAge() > 0) {
-                int newAge = ageable.getAge() - Multiplier;
+                int newAge = ageable.getAge() - CloudConfig.GREEN_CLOUD_TIMER_MODIFIER.get();
                 ageable.setAge(Math.max(newAge, 0));
                 updated = true;
             }
 
             if (entity instanceof Animal animal && animal.canFallInLove() && !animal.isInLove()
-                    && level.getGameTime() % BREED_INTERVAL == 0) {
+                    && level.getGameTime() % CloudConfig.GREEN_CLOUD_BREED_INTERVAL.get() == 0) {
                 animal.setInLove(null);
                 updated = true;
             }
@@ -151,7 +152,7 @@ public class GreenCloud extends YellowCloud {
         Set<Animal> animalsToProcess = new HashSet<>();
         for (BlockPos cloudPos : CLOUD_POSITIONS) {
             level.getEntitiesOfClass(Animal.class,
-                    new net.minecraft.world.phys.AABB(cloudPos).inflate(ATTRACTION_RANGE),
+                    new AABB(cloudPos).inflate(CloudConfig.GREEN_CLOUD_ATTRACTION_RANGE.get()),
                     animal -> true).forEach(animalsToProcess::add);
         }
 
@@ -172,7 +173,8 @@ public class GreenCloud extends YellowCloud {
             for (BlockPos cloudPos : CLOUD_POSITIONS) {
                 double distanceSqr = animal.distanceToSqr(cloudPos.getX() + 0.5, cloudPos.getY(),
                         cloudPos.getZ() + 0.5);
-                if (distanceSqr <= ATTRACTION_RANGE * ATTRACTION_RANGE && distanceSqr < minDistance) {
+                if (distanceSqr <= CloudConfig.GREEN_CLOUD_ATTRACTION_RANGE.get()
+                        * CloudConfig.GREEN_CLOUD_ATTRACTION_RANGE.get() && distanceSqr < minDistance) {
                     minDistance = distanceSqr;
                     nearestCloud = cloudPos;
                 }
@@ -180,12 +182,16 @@ public class GreenCloud extends YellowCloud {
 
             if (nearestCloud != null) {
                 animal.getNavigation().moveTo(nearestCloud.getX() + 0.5, nearestCloud.getY(), nearestCloud.getZ() + 0.5,
-                        ATTRACTION_SPEED);
+                        CloudConfig.GREEN_CLOUD_ATTRACTION_SPEED.get());
                 ANIMAL_TARGETS.put(animal.getUUID(), new CloudTarget(nearestCloud, level.dimension()));
             } else {
                 ANIMAL_TARGETS.remove(animal.getUUID());
             }
         }
+    }
+
+    public static void validateCloudPositions(ServerLevel level) {
+        CLOUD_POSITIONS.removeIf(pos -> !(level.getBlockState(pos).getBlock() instanceof GreenCloud));
     }
 
     @Override
