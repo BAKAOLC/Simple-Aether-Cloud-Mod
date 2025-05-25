@@ -26,7 +26,8 @@ public class BlueCloud extends YellowCloud {
         if (!entity.isShiftKeyDown()) {
             Vec3 prevMotion = entity.getDeltaMovement();
             if (prevMotion.y < CloudConfig.BLUE_CLOUD_VERTICAL_LAUNCH_SPEED.get()) {
-                Vec3 newMotion = CloudUtils.calculateDirection(prevMotion, new Vec3(0, CloudConfig.BLUE_CLOUD_VERTICAL_LAUNCH_SPEED.get(), 0), false, true, false);
+                Vec3 newMotion = CloudUtils.calculateDirection(prevMotion,
+                        new Vec3(0, CloudConfig.BLUE_CLOUD_VERTICAL_LAUNCH_SPEED.get(), 0), false, true, false);
                 CloudUtils.launchEntity(entity, newMotion);
             }
 

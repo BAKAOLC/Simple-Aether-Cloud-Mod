@@ -13,6 +13,8 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -23,6 +25,7 @@ public class CloudBlockFactory {
 
     private final DeferredRegister.Blocks blocks;
     private final DeferredRegister.Items items;
+    private final Map<String, DeferredBlock<? extends Block>> registeredBlocks = new HashMap<>();
 
     public CloudBlockFactory(DeferredRegister.Blocks blocks, DeferredRegister.Items items) {
         this.blocks = blocks;
@@ -60,5 +63,13 @@ public class CloudBlockFactory {
                 throw new RuntimeException("Failed to create cloud block: " + name, e);
             }
         });
+    }
+
+    public Block getBlock(String name) {
+        DeferredBlock<? extends Block> block = registeredBlocks.get(name);
+        if (block == null) {
+            throw new IllegalArgumentException("Block not found: " + name);
+        }
+        return block.get();
     }
 }

@@ -15,7 +15,8 @@ public class CloudBlockItem extends BlockItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents,
+            TooltipFlag isAdvanced) {
         super.appendHoverText(stack, context, tooltipComponents, isAdvanced);
         String descKey = this.getDescriptionId() + ".desc";
         String[] lines = Component.translatable(descKey).getString().split("\n");
@@ -23,4 +24,4 @@ public class CloudBlockItem extends BlockItem {
             tooltipComponents.add(Component.literal(line));
         }
     }
-} 
+}

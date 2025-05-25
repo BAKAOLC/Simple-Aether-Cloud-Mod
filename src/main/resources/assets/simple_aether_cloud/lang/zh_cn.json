@@ -23,12 +23,10 @@
     "block.simple_aether_cloud.black_cloud_timed.desc": "§a防止摔落伤害\n§f被生物长时间踩踏时会变成可通行方块\n§f生物永远会将其认作实心方块",
     "death.attack.simple_aether_cloud.red_cloud": "%1$s被赤红所吞噬",
     "simple_aether_cloud.configuration.blue_cloud": "蓝云设置",
-    "simple_aether_cloud.configuration.blue_cloud.vertical_launch_speed": "实体被向上弹射的速度",
+    "simple_aether_cloud.configuration.blue_cloud.launch_speed": "实体被向上弹射的速度",
     "simple_aether_cloud.configuration.blue_cloud.particle_count": "蓝云产生的粒子数量",
-    "simple_aether_cloud.configuration.horizontal_blue_cloud": "水平蓝云设置",
-    "simple_aether_cloud.configuration.horizontal_blue_cloud.horizontal_launch_speed": "实体被水平弹射的速度",
+    "simple_aether_cloud.configuration.horizontal_blue_cloud.launch_speed": "实体被水平弹射的速度",
     "simple_aether_cloud.configuration.horizontal_blue_cloud.particle_count": "水平蓝云产生的粒子数量",
-    "simple_aether_cloud.configuration.random_blue_cloud": "随机蓝云设置",
     "simple_aether_cloud.configuration.random_blue_cloud.launch_speed": "实体被随机方向弹射的速度",
     "simple_aether_cloud.configuration.random_blue_cloud.particle_count": "随机蓝云产生的粒子数量",
     "simple_aether_cloud.configuration.red_cloud": "红云设置",
@@ -43,5 +41,8 @@
     "simple_aether_cloud.configuration.green_cloud.move_interval": "移动更新的间隔",
     "simple_aether_cloud.configuration.green_cloud.particle_count": "绿云产生的粒子数量",
     "simple_aether_cloud.configuration.black_cloud": "黑云设置",
-    "simple_aether_cloud.configuration.black_cloud.particle_count": "黑云产生的粒子数量"
+    "simple_aether_cloud.configuration.black_cloud.particle_count": "黑云产生的粒子数量",
+    "simple_aether_cloud.configuration.black_cloud.timed_max_timer": "定时黑云块的最大计时器值",
+    "simple_aether_cloud.configuration.black_cloud.timed_cooldown": "定时黑云块的冷却时间",
+    "simple_aether_cloud.configuration.black_cloud.timed_reset_time": "当没有实体存在时重置正计时器的时间（以tick为单位）"
 }

@@ -48,7 +48,8 @@ public class HorizontalBlueCloud extends BlueCloud {
             Vec3 prevMotion = entity.getDeltaMovement();
             Direction facing = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
             double speed = CloudConfig.HORIZONTAL_BLUE_CLOUD_HORIZONTAL_LAUNCH_SPEED.get();
-            Vec3 newMotion = CloudUtils.calculateDirection(prevMotion, new Vec3(facing.getStepX() * speed, 0, facing.getStepZ() * speed), true, false, true);
+            Vec3 newMotion = CloudUtils.calculateDirection(prevMotion,
+                    new Vec3(facing.getStepX() * speed, 0, facing.getStepZ() * speed), true, false, true);
             CloudUtils.launchEntity(entity, newMotion);
 
             if (level.isClientSide()) {
