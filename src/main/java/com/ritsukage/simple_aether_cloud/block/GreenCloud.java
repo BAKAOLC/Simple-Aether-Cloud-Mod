@@ -1,8 +1,10 @@
 package com.ritsukage.simple_aether_cloud.block;
 
 import com.ritsukage.simple_aether_cloud.config.CloudConfig;
+import com.ritsukage.simple_aether_cloud.util.CloudUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.animal.Animal;
@@ -25,7 +27,8 @@ public class GreenCloud extends YellowCloud implements EntityBlock {
     }
 
     @Override
-    public VoxelShape getDefaultCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getDefaultCollisionShape(BlockState state, BlockGetter level, BlockPos pos,
+            CollisionContext context) {
         return COLLISION_SHAPE;
     }
 
@@ -34,38 +37,24 @@ public class GreenCloud extends YellowCloud implements EntityBlock {
         super.entityInside(state, level, pos, entity);
 
         if (level.isClientSide()) {
+            CloudUtils.playCloudSound(level, pos, entity, SoundEvents.SLIME_BLOCK_BREAK);
+            CloudUtils.spawnCloudParticles(level, pos, ParticleTypes.HAPPY_VILLAGER,
+                    CloudConfig.GREEN_CLOUD_PARTICLE_COUNT.get());
             return;
         }
 
-        boolean updated = false;
         if (entity instanceof AgeableMob ageable) {
             if (ageable.getAge() < 0) {
                 int newAge = ageable.getAge() + CloudConfig.GREEN_CLOUD_TIMER_MODIFIER.get();
                 ageable.setAge(Math.min(newAge, 0));
-                updated = true;
             } else if (ageable.getAge() > 0) {
                 int newAge = ageable.getAge() - CloudConfig.GREEN_CLOUD_TIMER_MODIFIER.get();
                 ageable.setAge(Math.max(newAge, 0));
-                updated = true;
             }
 
             if (entity instanceof Animal animal && animal.canFallInLove() && !animal.isInLove()
                     && level.getGameTime() % CloudConfig.GREEN_CLOUD_BREED_INTERVAL.get() == 0) {
                 animal.setInLove(null);
-                updated = true;
-            }
-        }
-
-        if (updated) {
-            return;
-        }
-
-        if (level.isClientSide()) {
-            for (int i = 0; i < CloudConfig.GREEN_CLOUD_PARTICLE_COUNT.get(); i++) {
-                double xOffset = pos.getX() + level.getRandom().nextDouble();
-                double yOffset = pos.getY() + level.getRandom().nextDouble();
-                double zOffset = pos.getZ() + level.getRandom().nextDouble();
-                level.addParticle(ParticleTypes.HAPPY_VILLAGER, xOffset, yOffset, zOffset, 0.0, 0.0, 0.0);
             }
         }
     }
@@ -76,7 +65,8 @@ public class GreenCloud extends YellowCloud implements EntityBlock {
     }
 
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state,
+            BlockEntityType<T> type) {
         return level.isClientSide ? null : (level1, pos, state1, blockEntity) -> {
             if (blockEntity instanceof GreenCloudBlockEntity greenCloud) {
                 greenCloud.tick();

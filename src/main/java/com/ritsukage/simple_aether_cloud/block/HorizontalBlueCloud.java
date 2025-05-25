@@ -1,11 +1,11 @@
 package com.ritsukage.simple_aether_cloud.block;
 
 import com.ritsukage.simple_aether_cloud.config.CloudConfig;
+import com.ritsukage.simple_aether_cloud.util.CloudUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -46,33 +46,15 @@ public class HorizontalBlueCloud extends BlueCloud {
         if (!entity.isShiftKeyDown()
                 && (!entity.isVehicle() || !(entity.getControllingPassenger() instanceof Player))) {
             Vec3 prevMotion = entity.getDeltaMovement();
-            entity.resetFallDistance();
-
             Direction facing = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
-            double horizontalSpeed = CloudConfig.HORIZONTAL_BLUE_CLOUD_HORIZONTAL_LAUNCH_SPEED.get();
-
-            double xMotion = facing.getStepX() * horizontalSpeed;
-            double zMotion = facing.getStepZ() * horizontalSpeed;
-
-            entity.setDeltaMovement(xMotion, prevMotion.y(), zMotion);
+            double speed = CloudConfig.HORIZONTAL_BLUE_CLOUD_HORIZONTAL_LAUNCH_SPEED.get();
+            Vec3 newMotion = CloudUtils.calculateDirection(prevMotion, new Vec3(facing.getStepX() * speed, 0, facing.getStepZ() * speed), true, false, true);
+            CloudUtils.launchEntity(entity, newMotion);
 
             if (level.isClientSide()) {
-                int amount = CloudConfig.HORIZONTAL_BLUE_CLOUD_MOVING_PARTICLE_COUNT.get();
-                if (entity.getY() == entity.yOld) {
-                    amount = CloudConfig.HORIZONTAL_BLUE_CLOUD_STATIC_PARTICLE_COUNT.get();
-                }
-                if (entity.getDeltaMovement().x() != prevMotion.x()
-                        || entity.getDeltaMovement().z() != prevMotion.z()) {
-                    level.playSound((entity instanceof Player player ? player : null), pos,
-                            SoundEvents.SLIME_BLOCK_BREAK, SoundSource.BLOCKS, 0.8F,
-                            0.5F + (((float) (Math.pow(level.getRandom().nextDouble(), 2.5))) * 0.5F));
-                }
-                for (int count = 0; count < amount; count++) {
-                    double xOffset = pos.getX() + level.getRandom().nextDouble();
-                    double yOffset = pos.getY() + level.getRandom().nextDouble();
-                    double zOffset = pos.getZ() + level.getRandom().nextDouble();
-                    level.addParticle(ParticleTypes.SPLASH, xOffset, yOffset, zOffset, 0.0, 0.0, 0.0);
-                }
+                CloudUtils.playCloudSound(level, pos, entity, SoundEvents.SLIME_BLOCK_BREAK);
+                CloudUtils.spawnCloudParticles(level, pos, ParticleTypes.SPLASH,
+                        CloudConfig.HORIZONTAL_BLUE_CLOUD_PARTICLE_COUNT.get());
             }
             if (!(entity instanceof Projectile)) {
                 entity.setOnGround(false);

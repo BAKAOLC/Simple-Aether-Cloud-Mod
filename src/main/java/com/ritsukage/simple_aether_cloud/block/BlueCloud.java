@@ -1,12 +1,11 @@
 package com.ritsukage.simple_aether_cloud.block;
 
 import com.ritsukage.simple_aether_cloud.config.CloudConfig;
+import com.ritsukage.simple_aether_cloud.util.CloudUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -26,30 +25,16 @@ public class BlueCloud extends YellowCloud {
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         if (!entity.isShiftKeyDown()) {
             Vec3 prevMotion = entity.getDeltaMovement();
-            entity.resetFallDistance();
-
             if (prevMotion.y < CloudConfig.BLUE_CLOUD_VERTICAL_LAUNCH_SPEED.get()) {
-                entity.setDeltaMovement(prevMotion.x, CloudConfig.BLUE_CLOUD_VERTICAL_LAUNCH_SPEED.get(), prevMotion.z);
+                Vec3 newMotion = CloudUtils.calculateDirection(prevMotion, new Vec3(0, CloudConfig.BLUE_CLOUD_VERTICAL_LAUNCH_SPEED.get(), 0), false, true, false);
+                CloudUtils.launchEntity(entity, newMotion);
             }
 
             if (level.isClientSide()) {
-                int amount = CloudConfig.BLUE_CLOUD_MOVING_PARTICLE_COUNT.get();
-                if (entity.getY() == entity.yOld) {
-                    amount = CloudConfig.BLUE_CLOUD_STATIC_PARTICLE_COUNT.get();
-                }
-                if (entity.getDeltaMovement().y() != prevMotion.y()) {
-                    level.playSound((entity instanceof Player player ? player : null), pos,
-                            SoundEvents.SLIME_BLOCK_BREAK, SoundSource.BLOCKS, 0.8F,
-                            0.5F + (((float) (Math.pow(level.getRandom().nextDouble(), 2.5))) * 0.5F));
-                }
-                for (int count = 0; count < amount; count++) {
-                    double xOffset = pos.getX() + level.getRandom().nextDouble();
-                    double yOffset = pos.getY() + level.getRandom().nextDouble();
-                    double zOffset = pos.getZ() + level.getRandom().nextDouble();
-                    level.addParticle(ParticleTypes.SPLASH, xOffset, yOffset, zOffset, 0.0, 0.0, 0.0);
-                }
+                CloudUtils.playCloudSound(level, pos, entity, SoundEvents.SLIME_BLOCK_BREAK);
+                CloudUtils.spawnCloudParticles(level, pos, ParticleTypes.SPLASH,
+                        CloudConfig.BLUE_CLOUD_PARTICLE_COUNT.get());
             }
-            entity.setOnGround(false);
         } else {
             super.entityInside(state, level, pos, entity);
         }

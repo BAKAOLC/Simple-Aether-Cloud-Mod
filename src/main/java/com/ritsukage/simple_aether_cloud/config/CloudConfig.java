@@ -7,11 +7,11 @@ public class CloudConfig {
     public static final ModConfigSpec SPEC;
 
     public static final ModConfigSpec.DoubleValue BLUE_CLOUD_VERTICAL_LAUNCH_SPEED;
-    public static final ModConfigSpec.IntValue BLUE_CLOUD_MOVING_PARTICLE_COUNT;
-    public static final ModConfigSpec.IntValue BLUE_CLOUD_STATIC_PARTICLE_COUNT;
+    public static final ModConfigSpec.IntValue BLUE_CLOUD_PARTICLE_COUNT;
     public static final ModConfigSpec.DoubleValue HORIZONTAL_BLUE_CLOUD_HORIZONTAL_LAUNCH_SPEED;
-    public static final ModConfigSpec.IntValue HORIZONTAL_BLUE_CLOUD_MOVING_PARTICLE_COUNT;
-    public static final ModConfigSpec.IntValue HORIZONTAL_BLUE_CLOUD_STATIC_PARTICLE_COUNT;
+    public static final ModConfigSpec.IntValue HORIZONTAL_BLUE_CLOUD_PARTICLE_COUNT;
+    public static final ModConfigSpec.DoubleValue RANDOM_BLUE_CLOUD_LAUNCH_SPEED;
+    public static final ModConfigSpec.IntValue RANDOM_BLUE_CLOUD_PARTICLE_COUNT;
     public static final ModConfigSpec.DoubleValue RED_CLOUD_DAMAGE_AMOUNT;
     public static final ModConfigSpec.IntValue RED_CLOUD_PARTICLE_COUNT;
     public static final ModConfigSpec.IntValue GREEN_CLOUD_ATTRACTION_RANGE;
@@ -21,9 +21,6 @@ public class CloudConfig {
     public static final ModConfigSpec.IntValue GREEN_CLOUD_TIMER_MODIFIER;
     public static final ModConfigSpec.IntValue GREEN_CLOUD_MOVE_INTERVAL;
     public static final ModConfigSpec.IntValue GREEN_CLOUD_PARTICLE_COUNT;
-    public static final ModConfigSpec.DoubleValue RANDOM_BLUE_CLOUD_LAUNCH_SPEED;
-    public static final ModConfigSpec.IntValue RANDOM_BLUE_CLOUD_MOVING_PARTICLE_COUNT;
-    public static final ModConfigSpec.IntValue RANDOM_BLUE_CLOUD_STATIC_PARTICLE_COUNT;
 
     static {
         BUILDER.push("blue_cloud");
@@ -31,14 +28,10 @@ public class CloudConfig {
                 .comment("Vertical launch speed of the blue cloud")
                 .translation("simple_aether_cloud.configuration.blue_cloud.vertical_launch_speed")
                 .defineInRange("verticalLaunchSpeed", 2.0, 0.1, 10.0);
-        BLUE_CLOUD_MOVING_PARTICLE_COUNT = BUILDER
-                .comment("Number of moving particles for the blue cloud")
-                .translation("simple_aether_cloud.configuration.blue_cloud.moving_particle_count")
-                .defineInRange("movingParticleCount", 50, 0, 100);
-        BLUE_CLOUD_STATIC_PARTICLE_COUNT = BUILDER
-                .comment("Number of static particles for the blue cloud")
-                .translation("simple_aether_cloud.configuration.blue_cloud.static_particle_count")
-                .defineInRange("staticParticleCount", 10, 0, 100);
+        BLUE_CLOUD_PARTICLE_COUNT = BUILDER
+                .comment("Number of particles for the blue cloud")
+                .translation("simple_aether_cloud.configuration.blue_cloud.particle_count")
+                .defineInRange("particleCount", 20, 0, 100);
         BUILDER.pop();
 
         BUILDER.push("horizontal_blue_cloud");
@@ -46,14 +39,10 @@ public class CloudConfig {
                 .comment("Horizontal launch speed of the horizontal blue cloud")
                 .translation("simple_aether_cloud.configuration.horizontal_blue_cloud.horizontal_launch_speed")
                 .defineInRange("horizontalLaunchSpeed", 2.0, 0.1, 10.0);
-        HORIZONTAL_BLUE_CLOUD_MOVING_PARTICLE_COUNT = BUILDER
-                .comment("Number of moving particles for the horizontal blue cloud")
-                .translation("simple_aether_cloud.configuration.horizontal_blue_cloud.moving_particle_count")
-                .defineInRange("movingParticleCount", 50, 0, 100);
-        HORIZONTAL_BLUE_CLOUD_STATIC_PARTICLE_COUNT = BUILDER
-                .comment("Number of static particles for the horizontal blue cloud")
-                .translation("simple_aether_cloud.configuration.horizontal_blue_cloud.static_particle_count")
-                .defineInRange("staticParticleCount", 10, 0, 100);
+        HORIZONTAL_BLUE_CLOUD_PARTICLE_COUNT = BUILDER
+                .comment("Number of particles for the horizontal blue cloud")
+                .translation("simple_aether_cloud.configuration.horizontal_blue_cloud.particle_count")
+                .defineInRange("particleCount", 20, 0, 100);
         BUILDER.pop();
 
         BUILDER.push("random_blue_cloud");
@@ -61,14 +50,10 @@ public class CloudConfig {
                 .comment("Speed at which entities are launched in random directions")
                 .translation("simple_aether_cloud.configuration.random_blue_cloud.launch_speed")
                 .defineInRange("launchSpeed", 2.0, 0.1, 10.0);
-        RANDOM_BLUE_CLOUD_MOVING_PARTICLE_COUNT = BUILDER
-                .comment("Number of moving particles for the random blue cloud")
-                .translation("simple_aether_cloud.configuration.random_blue_cloud.moving_particle_count")
-                .defineInRange("movingParticleCount", 50, 0, 100);
-        RANDOM_BLUE_CLOUD_STATIC_PARTICLE_COUNT = BUILDER
-                .comment("Number of static particles for the random blue cloud")
-                .translation("simple_aether_cloud.configuration.random_blue_cloud.static_particle_count")
-                .defineInRange("staticParticleCount", 10, 0, 100);
+        RANDOM_BLUE_CLOUD_PARTICLE_COUNT = BUILDER
+                .comment("Number of particles for the random blue cloud")
+                .translation("simple_aether_cloud.configuration.random_blue_cloud.particle_count")
+                .defineInRange("particleCount", 20, 0, 100);
         BUILDER.pop();
 
         BUILDER.push("red_cloud");
@@ -79,7 +64,7 @@ public class CloudConfig {
         RED_CLOUD_PARTICLE_COUNT = BUILDER
                 .comment("Number of particles for the red cloud")
                 .translation("simple_aether_cloud.configuration.red_cloud.particle_count")
-                .defineInRange("particleCount", 10, 0, 100);
+                .defineInRange("particleCount", 5, 0, 100);
         BUILDER.pop();
 
         BUILDER.push("green_cloud");
@@ -110,7 +95,7 @@ public class CloudConfig {
         GREEN_CLOUD_PARTICLE_COUNT = BUILDER
                 .comment("Number of particles for the green cloud")
                 .translation("simple_aether_cloud.configuration.green_cloud.particle_count")
-                .defineInRange("particleCount", 15, 0, 100);
+                .defineInRange("particleCount", 5, 0, 100);
         BUILDER.pop();
 
         SPEC = BUILDER.build();
