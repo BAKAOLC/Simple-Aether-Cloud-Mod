@@ -1,10 +1,8 @@
 # Simple Aether Cloud Mod
 
-A simple Minecraft mod that adds various cloud blocks. The original idea comes from The Aether mod, with added features.
-
 English | [简体中文](README.md)
 
-## Features
+A simple Minecraft mod that adds various cloud blocks. The original idea comes from The Aether mod, with added features.
 
 - Adds various cloud blocks including yellow, blue, horizontal blue, red, and green clouds
 - Cloud blocks can be placed and broken like normal blocks
