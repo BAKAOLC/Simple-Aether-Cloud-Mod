@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "simple_aether_cloud:block/black_cloud_toggleable_active"
+    }
+} 

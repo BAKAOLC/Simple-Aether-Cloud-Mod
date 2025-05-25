@@ -1,0 +1,9 @@
+{
+    "replace": false,
+    "values": [
+        "simple_aether_cloud:black_cloud",
+        "simple_aether_cloud:black_cloud_toggleable",
+        "simple_aether_cloud:black_cloud_inverted",
+        "simple_aether_cloud:black_cloud_timed"
+    ]
+} 

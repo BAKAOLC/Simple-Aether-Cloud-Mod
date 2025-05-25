@@ -21,6 +21,7 @@ public class CloudConfig {
     public static final ModConfigSpec.IntValue GREEN_CLOUD_TIMER_MODIFIER;
     public static final ModConfigSpec.IntValue GREEN_CLOUD_MOVE_INTERVAL;
     public static final ModConfigSpec.IntValue GREEN_CLOUD_PARTICLE_COUNT;
+    public static final ModConfigSpec.IntValue BLACK_CLOUD_PARTICLE_COUNT;
 
     static {
         BUILDER.push("blue_cloud");
@@ -96,6 +97,13 @@ public class CloudConfig {
                 .comment("Number of particles for the green cloud")
                 .translation("simple_aether_cloud.configuration.green_cloud.particle_count")
                 .defineInRange("particleCount", 5, 0, 100);
+        BUILDER.pop();
+
+        BUILDER.push("black_cloud");
+        BLACK_CLOUD_PARTICLE_COUNT = BUILDER
+                .comment("Number of particles for the black cloud")
+                .translation("simple_aether_cloud.configuration.black_cloud.particle_count")
+                .defineInRange("particleCount", 1, 0, 100);
         BUILDER.pop();
 
         SPEC = BUILDER.build();

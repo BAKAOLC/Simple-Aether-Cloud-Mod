@@ -1,0 +1,15 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "simple_aether_cloud:black_cloud"
+        },
+        {
+            "item": "minecraft:lever"
+        }
+    ],
+    "result": {
+        "id": "simple_aether_cloud:black_cloud_toggleable",
+        "count": 1
+    }
+} 

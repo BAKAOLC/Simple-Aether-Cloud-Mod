@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "activated=false": {
+            "model": "simple_aether_cloud:block/black_cloud_timed"
+        },
+        "activated=true": {
+            "model": "simple_aether_cloud:block/black_cloud_timed_active"
+        }
+    }
+} 

@@ -64,7 +64,11 @@ public class SimpleAetherCloud {
                     MapColor.COLOR_LIGHT_BLUE),
             new CloudBlockInfo("blue_cloud_random", RandomBlueCloud.class, MapColor.COLOR_LIGHT_BLUE),
             new CloudBlockInfo("red_cloud", RedCloud.class, MapColor.COLOR_RED),
-            new CloudBlockInfo("green_cloud", GreenCloud.class, MapColor.COLOR_GREEN)));
+            new CloudBlockInfo("green_cloud", GreenCloud.class, MapColor.COLOR_GREEN),
+            new CloudBlockInfo("black_cloud", BlackCloudBlock.class, MapColor.COLOR_BLACK),
+            new CloudBlockInfo("black_cloud_toggleable", ToggleableBlackCloudBlock.class, MapColor.COLOR_BLACK),
+            new CloudBlockInfo("black_cloud_inverted", InvertedBlackCloudBlock.class, MapColor.COLOR_BLACK),
+            new CloudBlockInfo("black_cloud_timed", TimedBlackCloudBlock.class, MapColor.COLOR_BLACK)));
 
     static {
         CLOUD_BLOCKS.forEach(info -> {

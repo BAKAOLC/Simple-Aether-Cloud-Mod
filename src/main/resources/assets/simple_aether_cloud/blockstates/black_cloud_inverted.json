@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "activated=false": {
+            "model": "simple_aether_cloud:block/black_cloud_inverted"
+        },
+        "activated=true": {
+            "model": "simple_aether_cloud:block/black_cloud_inverted_active"
+        }
+    }
+} 
