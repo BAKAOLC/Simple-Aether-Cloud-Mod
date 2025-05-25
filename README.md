@@ -125,4 +125,4 @@ cd Simple-Aether-Cloud-Mod
 
 ## 致谢
 
-- 部分代码参考于 [The Aether Mod](https://github.com/The-Aether-Team/The-Aether)
+- 部分思路参考于 [The Aether Mod](https://github.com/The-Aether-Team/The-Aether) 并重新实现

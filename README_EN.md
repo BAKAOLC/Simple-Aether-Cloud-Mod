@@ -125,4 +125,4 @@ This project is licensed under LGPL-3.0. See the [LICENSE](LICENSE) file for det
 
 ## Acknowledgments
 
-- Some code references from [The Aether Mod](https://github.com/The-Aether-Team/The-Aether) 
+- Inspired by [The Aether Mod](https://github.com/The-Aether-Team/The-Aether), but completely reimplemented
