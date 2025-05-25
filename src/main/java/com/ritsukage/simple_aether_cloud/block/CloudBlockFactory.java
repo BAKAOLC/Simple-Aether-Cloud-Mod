@@ -47,18 +47,18 @@ public class CloudBlockFactory {
     }
 
     public <T extends Block> DeferredItem<BlockItem> registerItem(String name, DeferredBlock<T> block) {
-        return items.register(name, (Function<ResourceLocation, BlockItem>) location -> 
-            new CloudBlockItem(block.get(), new Item.Properties()));
+        return items.register(name, (Function<ResourceLocation, BlockItem>) location -> new CloudBlockItem(block.get(),
+                new Item.Properties()));
     }
 
     public <T extends Block> DeferredBlock<T> registerCloudBlock(String name, Class<T> blockClass, MapColor color) {
         return registerBlock(name, () -> {
             try {
                 return blockClass.getConstructor(BlockBehaviour.Properties.class)
-                    .newInstance(createBaseProperties(color));
+                        .newInstance(createBaseProperties(color));
             } catch (Exception e) {
                 throw new RuntimeException("Failed to create cloud block: " + name, e);
             }
         });
     }
-} 
+}

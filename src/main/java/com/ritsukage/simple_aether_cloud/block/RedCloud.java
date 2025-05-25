@@ -1,11 +1,12 @@
 package com.ritsukage.simple_aether_cloud.block;
 
+import com.ritsukage.simple_aether_cloud.SimpleAetherCloud;
 import com.ritsukage.simple_aether_cloud.config.CloudConfig;
-import com.ritsukage.simple_aether_cloud.damage.RedCloudDamageSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -33,7 +34,11 @@ public class RedCloud extends YellowCloud {
             return;
         }
 
-        livingEntity.hurt(new RedCloudDamageSource(level), CloudConfig.RED_CLOUD_DAMAGE_AMOUNT.get().floatValue());
+        livingEntity.hurt(
+                new DamageSource(
+                        level.registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.DAMAGE_TYPE)
+                                .getOrThrow(SimpleAetherCloud.RED_CLOUD_DAMAGE_TYPE)),
+                CloudConfig.RED_CLOUD_DAMAGE_AMOUNT.get().floatValue());
 
         if (!level.isClientSide()) {
             return;

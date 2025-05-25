@@ -1,5 +1,6 @@
 package com.ritsukage.simple_aether_cloud.block;
 
+import com.ritsukage.simple_aether_cloud.SimpleAetherCloud;
 import com.ritsukage.simple_aether_cloud.config.CloudConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.animal.Animal;
@@ -16,7 +17,7 @@ public class GreenCloudBlockEntity extends BlockEntity {
     private static final Map<ResourceKey<Level>, Set<GreenCloudBlockEntity>> CLOUD_REGISTRY = new ConcurrentHashMap<>();
 
     public GreenCloudBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.GREEN_CLOUD.get(), pos, state);
+        super(SimpleAetherCloud.GREEN_CLOUD.get(), pos, state);
     }
 
     @Override

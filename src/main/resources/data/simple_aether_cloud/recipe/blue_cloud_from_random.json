@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "simple_aether_cloud:blue_cloud_random"
+        }
+    ],
+    "result": {
+        "id": "simple_aether_cloud:blue_cloud",
+        "count": 1
+    }
+}

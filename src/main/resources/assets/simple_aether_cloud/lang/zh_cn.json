@@ -11,6 +11,9 @@
     "block.simple_aether_cloud.red_cloud.desc": "§a防止摔落伤害\n§c对实体造成伤害\n§7潜行时免疫伤害",
     "block.simple_aether_cloud.green_cloud": "绿云",
     "block.simple_aether_cloud.green_cloud.desc": "§a防止摔落伤害\n§a加速实体成长\n§a加快繁殖冷却\n§a吸引附近动物靠近\n§7方块内的动物会定期尝试繁殖",
+    "block.simple_aether_cloud.blue_cloud_random": "随机蓝云",
+    "block.simple_aether_cloud.blue_cloud_random.desc": "将实体随机抛向六个方向之一\n按住Shift键可以正常通过",
+    "death.attack.simple_aether_cloud.red_cloud": "%1$s被赤红所吞噬",
     "simple_aether_cloud.configuration.blue_cloud": "蓝云设置",
     "simple_aether_cloud.configuration.blue_cloud.vertical_launch_speed": "实体被向上弹射的速度",
     "simple_aether_cloud.configuration.blue_cloud.moving_particle_count": "实体在云中移动时产生的粒子数量",
@@ -29,5 +32,9 @@
     "simple_aether_cloud.configuration.green_cloud.breed_interval": "繁殖尝试的间隔",
     "simple_aether_cloud.configuration.green_cloud.timer_modifier": "计时器变化倍率（更高的值使计时器进度更快）",
     "simple_aether_cloud.configuration.green_cloud.move_interval": "移动更新的间隔",
-    "simple_aether_cloud.configuration.green_cloud.particle_count": "绿云产生的粒子数量"
+    "simple_aether_cloud.configuration.green_cloud.particle_count": "绿云产生的粒子数量",
+    "simple_aether_cloud.configuration.random_blue_cloud": "随机蓝云设置",
+    "simple_aether_cloud.configuration.random_blue_cloud.launch_speed": "实体被随机方向弹射的速度",
+    "simple_aether_cloud.configuration.random_blue_cloud.moving_particle_count": "实体在云中移动时产生的粒子数量",
+    "simple_aether_cloud.configuration.random_blue_cloud.static_particle_count": "实体在云中静止时产生的粒子数量"
 }

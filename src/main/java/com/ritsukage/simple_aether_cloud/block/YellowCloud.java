@@ -66,7 +66,7 @@ public class YellowCloud extends HalfTransparentBlock {
     }
 
     protected VoxelShape getDefaultCollisionShape(BlockState state, BlockGetter level, BlockPos pos,
-            CollisionContext context) {
+                                                  CollisionContext context) {
         return COLLISION_SHAPE;
     }
 

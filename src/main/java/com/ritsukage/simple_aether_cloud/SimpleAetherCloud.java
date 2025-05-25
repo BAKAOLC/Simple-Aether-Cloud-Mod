@@ -10,6 +10,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -24,6 +25,9 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.fml.loading.FMLEnvironment;
+import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +39,17 @@ public class SimpleAetherCloud {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister
             .create(Registries.CREATIVE_MODE_TAB, MODID);
+    public static final DeferredRegister<DamageType> DAMAGE_TYPES = DeferredRegister
+            .create(Registries.DAMAGE_TYPE, MODID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister
+            .create(Registries.BLOCK_ENTITY_TYPE, MODID);
+
+    public static final ResourceKey<DamageType> RED_CLOUD_DAMAGE_TYPE = ResourceKey.create(
+            Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(MODID, "red_cloud"));
+
+    private static final BlockEntityFactory BLOCK_ENTITY_FACTORY = new BlockEntityFactory(BLOCK_ENTITIES);
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<GreenCloudBlockEntity>> GREEN_CLOUD = BLOCK_ENTITY_FACTORY
+            .register("green_cloud", GreenCloudBlockEntity::new);
 
     private static final CloudBlockFactory CLOUD_FACTORY = new CloudBlockFactory(BLOCKS, ITEMS);
     private static final List<DeferredItem<BlockItem>> CLOUD_ITEMS = new ArrayList<>();
@@ -47,6 +62,7 @@ public class SimpleAetherCloud {
             new CloudBlockInfo("blue_cloud", BlueCloud.class, MapColor.COLOR_LIGHT_BLUE),
             new CloudBlockInfo("horizontal_blue_cloud", HorizontalBlueCloud.class,
                     MapColor.COLOR_LIGHT_BLUE),
+            new CloudBlockInfo("blue_cloud_random", RandomBlueCloud.class, MapColor.COLOR_LIGHT_BLUE),
             new CloudBlockInfo("red_cloud", RedCloud.class, MapColor.COLOR_RED),
             new CloudBlockInfo("green_cloud", GreenCloud.class, MapColor.COLOR_GREEN)));
 
@@ -71,8 +87,9 @@ public class SimpleAetherCloud {
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
+        DAMAGE_TYPES.register(modEventBus);
+        BLOCK_ENTITIES.register(modEventBus);
         NeoForge.EVENT_BUS.register(GreenCloudHandler.class);
-        ModBlockEntities.BLOCK_ENTITIES.register(modEventBus);
 
         modEventBus.addListener(this::addCreative);
         modContainer.registerConfig(ModConfig.Type.COMMON, CloudConfig.SPEC);

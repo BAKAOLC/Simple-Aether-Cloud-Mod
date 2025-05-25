@@ -1,0 +1,7 @@
+{
+    "message_id": "simple_aether_cloud.red_cloud",
+    "scaling": "never",
+    "exhaustion": 0.0,
+    "effects": "hurt",
+    "death_message_type": "default"
+}
