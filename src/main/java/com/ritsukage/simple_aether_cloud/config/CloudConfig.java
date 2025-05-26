@@ -115,11 +115,11 @@ public class CloudConfig {
         BLACK_CLOUD_TIMED_RESET_TIME = BUILDER
                 .comment("Reset time for timed black cloud blocks")
                 .translation("simple_aether_cloud.configuration.black_cloud.timed_reset_time")
-                .defineInRange("black_cloud_timed_reset_time", 100, 1, 1000);
+                .defineInRange("black_cloud_timed_reset_time", 20, 1, 1000);
         BLACK_CLOUD_TIMED_WARNING_TIME = BUILDER
                 .comment("Warning time before timed black cloud deactivates")
                 .translation("simple_aether_cloud.configuration.black_cloud.timed_warning_time")
-                .defineInRange("black_cloud_timed_warning_time", 20, 1, 1000);
+                .defineInRange("black_cloud_timed_warning_time", 60, 1, 1000);
         BUILDER.pop();
 
         SPEC = BUILDER.build();
