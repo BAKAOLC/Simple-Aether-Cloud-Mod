@@ -5,6 +5,7 @@
         "#simple_aether_cloud:clouds/yellow",
         "#simple_aether_cloud:clouds/red",
         "#simple_aether_cloud:clouds/green",
-        "#simple_aether_cloud:clouds/black"
+        "#simple_aether_cloud:clouds/black",
+        "#simple_aether_cloud:clouds/purple"
     ]
 }
