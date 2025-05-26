@@ -2,9 +2,12 @@ package com.ritsukage.simple_aether_cloud.block;
 
 import com.ritsukage.simple_aether_cloud.registry.CloudRegistry;
 import com.ritsukage.simple_aether_cloud.config.CloudConfig;
+import com.ritsukage.simple_aether_cloud.util.CloudUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -66,8 +69,25 @@ public class TimedBlackCloudBlockEntity extends BlockEntity implements BlockEnti
         }
 
         boolean shouldBeActivated = blockEntity.timer >= 0;
-        if (shouldBeActivated != state.getValue(BlackCloudBlock.ACTIVATED)) {
-            level.setBlock(pos, state.setValue(BlackCloudBlock.ACTIVATED, shouldBeActivated), 3);
+        boolean shouldBeWarning = shouldBeActivated &&
+                (CloudConfig.BLACK_CLOUD_TIMED_MAX_TIMER.get()
+                        - blockEntity.timer) <= CloudConfig.BLACK_CLOUD_TIMED_WARNING_TIME.get();
+
+        if (shouldBeActivated != state.getValue(BlackCloudBlock.ACTIVATED) ||
+                shouldBeWarning != state.getValue(BlackCloudBlock.WARNING)) {
+            level.setBlock(pos, state
+                    .setValue(BlackCloudBlock.ACTIVATED, shouldBeActivated)
+                    .setValue(BlackCloudBlock.WARNING, shouldBeWarning), 3);
+
+            SoundEvent sound;
+            if (!shouldBeActivated) {
+                sound = SoundEvents.NOTE_BLOCK_BASS.value();
+            } else if (shouldBeWarning) {
+                sound = SoundEvents.NOTE_BLOCK_BIT.value();
+            } else {
+                sound = SoundEvents.NOTE_BLOCK_PLING.value();
+            }
+            CloudUtils.playCloudSound(level, pos, null, sound);
         }
     }
 }

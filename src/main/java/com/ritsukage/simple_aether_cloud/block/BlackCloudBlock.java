@@ -14,23 +14,28 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 
 import com.ritsukage.simple_aether_cloud.config.CloudConfig;
 import com.ritsukage.simple_aether_cloud.util.CloudUtils;
 
 public class BlackCloudBlock extends Block {
     public static final BooleanProperty ACTIVATED = BooleanProperty.create("activated");
+    public static final BooleanProperty WARNING = BooleanProperty.create("warning");
     private static final VoxelShape EMPTY_SHAPE = Shapes.empty();
     private static final VoxelShape FULL_SHAPE = Shapes.block();
 
     public BlackCloudBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(ACTIVATED, false));
+        this.registerDefaultState(this.stateDefinition.any()
+                .setValue(ACTIVATED, false)
+                .setValue(WARNING, false));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(ACTIVATED);
+        builder.add(ACTIVATED, WARNING);
     }
 
     @Override
@@ -55,6 +60,9 @@ public class BlackCloudBlock extends Block {
             boolean powered = world.hasNeighborSignal(pos);
             if (powered != state.getValue(ACTIVATED)) {
                 world.setBlock(pos, state.setValue(ACTIVATED, powered), 2);
+                SoundEvent sound = powered ? SoundEvents.NOTE_BLOCK_PLING.value()
+                        : SoundEvents.NOTE_BLOCK_BASS.value();
+                CloudUtils.playCloudSound(world, pos, null, sound);
             }
         }
     }

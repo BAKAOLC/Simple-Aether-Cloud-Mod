@@ -1,10 +1,13 @@
 {
     "variants": {
-        "activated=false": {
+        "activated=false,warning=false": {
             "model": "simple_aether_cloud:block/black_cloud_timed"
         },
-        "activated=true": {
+        "activated=true,warning=false": {
             "model": "simple_aether_cloud:block/black_cloud_timed_active"
+        },
+        "activated=true,warning=true": {
+            "model": "simple_aether_cloud:block/black_cloud_timed_warning"
         }
     }
 } 

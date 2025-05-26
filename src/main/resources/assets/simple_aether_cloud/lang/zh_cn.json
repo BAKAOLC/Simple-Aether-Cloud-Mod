@@ -44,5 +44,6 @@
     "simple_aether_cloud.configuration.black_cloud.particle_count": "黑云产生的粒子数量",
     "simple_aether_cloud.configuration.black_cloud.timed_max_timer": "定时黑云块的最大计时器值",
     "simple_aether_cloud.configuration.black_cloud.timed_cooldown": "定时黑云块的冷却时间",
-    "simple_aether_cloud.configuration.black_cloud.timed_reset_time": "当没有实体存在时重置正计时器的时间（以tick为单位）"
+    "simple_aether_cloud.configuration.black_cloud.timed_reset_time": "当没有实体存在时重置正计时器的时间（以tick为单位）",
+    "simple_aether_cloud.configuration.black_cloud.timed_warning_time": "定时黑云块进入警告状态前的警告时间（以tick为单位）"
 }

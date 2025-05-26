@@ -25,6 +25,7 @@ public class CloudConfig {
     public static final ModConfigSpec.IntValue BLACK_CLOUD_TIMED_MAX_TIMER;
     public static final ModConfigSpec.IntValue BLACK_CLOUD_TIMED_COOLDOWN;
     public static final ModConfigSpec.IntValue BLACK_CLOUD_TIMED_RESET_TIME;
+    public static final ModConfigSpec.IntValue BLACK_CLOUD_TIMED_WARNING_TIME;
 
     static {
         BUILDER.push("blue_cloud");
@@ -112,9 +113,13 @@ public class CloudConfig {
                 .translation("simple_aether_cloud.configuration.black_cloud.timed_cooldown")
                 .defineInRange("black_cloud_timed_cooldown", 100, 1, 1000);
         BLACK_CLOUD_TIMED_RESET_TIME = BUILDER
-                .comment("Time in ticks before resetting positive timer when no entity is present")
+                .comment("Reset time for timed black cloud blocks")
                 .translation("simple_aether_cloud.configuration.black_cloud.timed_reset_time")
                 .defineInRange("black_cloud_timed_reset_time", 100, 1, 1000);
+        BLACK_CLOUD_TIMED_WARNING_TIME = BUILDER
+                .comment("Warning time before timed black cloud deactivates")
+                .translation("simple_aether_cloud.configuration.black_cloud.timed_warning_time")
+                .defineInRange("black_cloud_timed_warning_time", 20, 1, 1000);
         BUILDER.pop();
 
         SPEC = BUILDER.build();
