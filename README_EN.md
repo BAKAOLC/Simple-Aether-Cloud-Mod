@@ -4,93 +4,40 @@ English | [简体中文](README.md)
 
 A simple Minecraft mod that adds various cloud blocks. The original idea comes from The Aether mod, with additional features added.
 
-- Added yellow cloud, blue cloud, horizontal blue cloud, red cloud, and green cloud blocks
+- Added yellow cloud, blue cloud, red cloud, green cloud, and black cloud blocks
 - Cloud blocks can be placed and broken like normal blocks
-- Cloud blocks have special collision boxes that allow players to pass through
-- Red cloud deals damage to entities that touch it
-- Green cloud accelerates entity growth and promotes breeding
-
-## Crafting Recipes
-
-### Yellow Cloud
-
-```
-Sugar + Yellow Dye = Yellow Cloud
-```
-
-### Blue Cloud
-
-```
-Sugar + Blue Dye = Blue Cloud
-```
-
-### Horizontal Blue Cloud
-
-```
-Blue Cloud = Horizontal Blue Cloud
-Horizontal Blue Cloud = Blue Cloud
-```
-
-### Random Blue Cloud
-
-```
-Any Blue Cloud Block = Random Blue Cloud
-```
-
-### Red Cloud
-
-```
-Sugar + Red Dye = Red Cloud
-```
-
-### Green Cloud
-
-```
-Sugar + Green Dye = Green Cloud
-```
+- Cloud blocks prevent fall damage
 
 ## Features
 
-### Common Features
-
-- Cloud blocks can be placed and broken like normal blocks
-- Cloud blocks have special collision boxes that allow players to pass through
-- Cloud blocks display as 3D models in inventory
-
 ### Yellow Cloud
 
-- Prevents fall damage
 - Cannot pass through block bottoms
 
 ### Blue Cloud
 
-- Prevents fall damage
 - Launches entities in the specified direction
 - Sneaking prevents launch and slowly sinks
-
-### Horizontal Blue Cloud
-
-- Same effects as Blue Cloud, but launch direction is fixed to horizontal
-
-### Random Blue Cloud
-
-- Prevents fall damage
-- Randomly launches entities in one of six directions
-- Hold Shift to pass through normally
+- Other variant features can be found in-game
 
 ### Red Cloud
 
-- Prevents fall damage
 - Deals damage to entities
 - Sneaking makes you immune to damage
 
 ### Green Cloud
 
-- Prevents fall damage
 - Accelerates entity growth
 - Speeds up breeding cooldown
 - Attracts nearby animals
 - Animals in the cloud will periodically attempt to breed
+
+### Black Cloud
+
+- Blocks or allows entities to pass through
+- Recognized as solid blocks by mobs
+- Can spawn mobs on top when in blocking state
+- Other variant features can be found in-game
 
 ## Requirements
 
