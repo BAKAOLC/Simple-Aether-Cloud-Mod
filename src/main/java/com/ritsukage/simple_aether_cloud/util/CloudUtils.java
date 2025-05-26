@@ -90,9 +90,6 @@ public class CloudUtils {
      * @param sound  要播放的音效
      */
     public static void playCloudSound(Level level, BlockPos pos, Entity entity, SoundEvent sound) {
-        if (!level.isClientSide())
-            return;
-
         level.playSound(
                 (entity instanceof Player player ? player : null),
                 pos,
