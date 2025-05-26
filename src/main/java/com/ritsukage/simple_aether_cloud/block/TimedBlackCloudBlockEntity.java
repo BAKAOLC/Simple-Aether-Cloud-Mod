@@ -67,7 +67,7 @@ public class TimedBlackCloudBlockEntity extends BlockEntity implements BlockEnti
 
         boolean shouldBeActivated = blockEntity.timer >= 0;
         if (shouldBeActivated != state.getValue(BlackCloudBlock.ACTIVATED)) {
-            level.setBlock(pos, state.setValue(BlackCloudBlock.ACTIVATED, shouldBeActivated), 2);
+            level.setBlock(pos, state.setValue(BlackCloudBlock.ACTIVATED, shouldBeActivated), 3);
         }
     }
 }

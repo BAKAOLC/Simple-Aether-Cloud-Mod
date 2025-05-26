@@ -32,14 +32,6 @@ public class TimedBlackCloudBlock extends BlackCloudBlock implements EntityBlock
     }
 
     @Override
-    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
-        if (!level.isClientSide) {
-            level.setBlock(pos, state.setValue(ACTIVATED, true), 2);
-        }
-        super.onPlace(state, level, pos, oldState, isMoving);
-    }
-
-    @Override
     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos,
             boolean isMoving) {
     }
