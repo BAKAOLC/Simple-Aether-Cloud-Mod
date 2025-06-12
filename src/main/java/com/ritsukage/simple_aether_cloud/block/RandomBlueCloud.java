@@ -32,9 +32,13 @@ public class RandomBlueCloud extends YellowCloud {
             Direction[] directions = Direction.values();
             Direction randomDir = directions[RANDOM.nextInt(directions.length)];
             double speed = CloudConfig.RANDOM_BLUE_CLOUD_LAUNCH_SPEED.get();
-            Vec3 newMotion = CloudUtils.calculateDirection(prevMotion,
-                    new Vec3(randomDir.getStepX() * speed, randomDir.getStepY() * speed, randomDir.getStepZ() * speed),
-                    true, true, true);
+
+            Vec3 targetMotion = new Vec3(randomDir.getStepX() * speed, randomDir.getStepY() * speed, randomDir.getStepZ() * speed);
+            Vec3 newMotion = CloudUtils.calculateDirection(prevMotion, targetMotion,
+                    targetMotion.x != 0,
+                    targetMotion.y != 0,
+                    targetMotion.z != 0
+            );
             CloudUtils.launchEntity(entity, newMotion);
 
             if (level.isClientSide()) {
