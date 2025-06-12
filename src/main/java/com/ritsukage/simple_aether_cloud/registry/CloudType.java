@@ -14,8 +14,7 @@ public enum CloudType {
     BLACK("black_cloud", BlackCloudBlock.class, MapColor.COLOR_BLACK),
     TOGGLEABLE_BLACK("black_cloud_toggleable", ToggleableBlackCloudBlock.class, MapColor.COLOR_BLACK),
     INVERTED_BLACK("black_cloud_inverted", InvertedBlackCloudBlock.class, MapColor.COLOR_BLACK),
-    TIMED_BLACK("black_cloud_timed", TimedBlackCloudBlock.class, MapColor.COLOR_BLACK),
-    PURPLE("purple_cloud", PurpleCloud.class, MapColor.COLOR_PURPLE);
+    TIMED_BLACK("black_cloud_timed", TimedBlackCloudBlock.class, MapColor.COLOR_BLACK);
 
     private final String name;
     private final Class<? extends Block> blockClass;

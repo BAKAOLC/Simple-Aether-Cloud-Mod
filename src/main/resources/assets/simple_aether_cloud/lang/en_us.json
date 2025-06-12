@@ -45,7 +45,5 @@
     "simple_aether_cloud.configuration.black_cloud.timed_max_timer": "Maximum timer value for timed black cloud blocks",
     "simple_aether_cloud.configuration.black_cloud.timed_cooldown": "Cooldown duration for timed black cloud blocks",
     "simple_aether_cloud.configuration.black_cloud.timed_reset_time": "Time in ticks before resetting positive timer when no entity is present",
-    "simple_aether_cloud.configuration.black_cloud.timed_warning_time": "Warning time before timed black cloud deactivates",
-    "block.simple_aether_cloud.purple_cloud": "Purple Cloud",
-    "block.simple_aether_cloud.purple_cloud.desc": "§aPrevents fall damage\n§fAutomatically moves up"
+    "simple_aether_cloud.configuration.black_cloud.timed_warning_time": "Warning time before timed black cloud deactivates"
 }
